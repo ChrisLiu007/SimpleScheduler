@@ -1,0 +1,31 @@
+#!/bin/bash
+for k in 1 2 3
+do
+  for u in 00 10 20 30 70 80 90
+  do
+    for v in 00 10 20 30 70 80 90
+    do
+      for i in tests/${k}/20_*_${u}_${v}_in.txt
+      do
+        if test -f "$i" 
+        then
+          var1=`./bin/main --approach=1 --log=false < $i`
+          var2=`./bin/main --approach=2 --log=false < $i`
+          var3=`./bin/main --approach=3 --log=false < $i`
+          var4=`./bin/main --approach=4 --log=false < $i`
+          var5=`./bin/main --approach=5 --log=false < $i`
+          var6=`./bin/main --approach=6 --log=false < $i`
+          ch1=`expr "${var1}" : '.*\([0-9]\.[0-9]*\)'`
+          ch2=`expr "${var2}" : '.*\([0-9]\.[0-9]*\)'`
+          ch3=`expr "${var3}" : '.*\([0-9]\.[0-9]*\)'`
+          ch4=`expr "${var4}" : '.*\([0-9]\.[0-9]*\)'`
+          ch5=`expr "${var5}" : '.*\([0-9]\.[0-9]*\)'`
+          ch6=`expr "${var6}" : '.*: \([0-9]\.[0-9]*\)'`
+          ch7=`expr "${var6}" : '.*[0-9] \([0-9]*.*\)'`
+          echo "$i $ch1 $ch2 $ch3 $ch4 $ch5 $ch6 $ch7"
+        fi
+      done
+    done
+  done
+done
+
